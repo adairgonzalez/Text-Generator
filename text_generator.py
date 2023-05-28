@@ -3,18 +3,26 @@ from collections import Counter
 import random
 import re
 
+'''Select Training Model'''
 corpus_file = input()
+
+'''Open The File Containing Model'''
 with open(corpus_file, "r", encoding="utf-8") as corpus:
    tokens = corpus.read().split()
+
+'''Convert the model into bigrams'''
 bigram_list = list(bigrams(tokens))
 
+'''Keep count of number of bigrams in a [head, tail] format'''
 dictionary = {}
 for head, tail in bigram_list:
    dictionary.setdefault(head, Counter())
    dictionary[head].update([tail])
 
+'''List Comprehension for capital words'''
 cap_words = [word for word in tokens if word[0].isupper()]
 
+'''Prediction algorithm based on the last word of the current pseudo-sentence'''
 sentences = []
 while len(sentences) < 10:
    sentence = []
